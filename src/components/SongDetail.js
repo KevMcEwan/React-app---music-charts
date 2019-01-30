@@ -1,16 +1,14 @@
 import React from 'react';
+import './SongDetail.css';
 
-const SongDetail = ({song}) => {
-   if (!song) return null;
-   return (
-      <>
-      <h3>Position: </h3>
-      <p>Title: {song["im:name"].label}</p>
-      <p>Artist: {song["im:artist"].label}</p>
-      <p>Genre: {song.category.attributes.label}</p>
-      <p>Link</p>
-      </>
-   );
-}
+const SongDetail = (song) => (
+   <>
+      <p>Position: {song.position}</p>
+      <p>Title: {song.title}</p>
+      <p>Artist: {song.artist}</p>
+      <p>Genre: {song.genre}</p>
+      
+   </>
+)
 
 export default SongDetail;

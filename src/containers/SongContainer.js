@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import SongSelector from '../components/SongSelector.js';
+import SongList from '../components/SongList.js';
 import SongDetail from '../components/SongDetail.js';
+import Header from '../components/Header.js';
 
 class SongContainer extends Component {
    constructor(props) {
@@ -19,13 +20,13 @@ handleSongSelected(index){
 
 
 componentDidMount(){
-   const url = 'https://rss.itunes.apple.com/api/v1/gb/itunes-music/top-songs/all/10/non-explicit.json';
+   const url = 'https://itunes.apple.com/gb/rss/topsongs/limit=20/json';
    const request = new XMLHttpRequest();
    request.open('GET', url);
    request.addEventListener('load', () => {
       const jsonString = request.responseText;
       const songObjects = JSON.parse(jsonString);
-      this.setState({songs: songObjects.feed.results});
+      this.setState({songs: songObjects.feed.entry});
    })
    request.send();
 }
@@ -33,8 +34,8 @@ componentDidMount(){
    render() {
       return (
          <>
-            <h1>Top of the Pops Top 20!</h1>
-            <SongSelector songs={this.state.songs} onSongSelected={this.handleSongSelected} />
+            <Header/>
+            <SongList songs={this.state.songs} onSongSelected={this.handleSongSelected} />
             <SongDetail song={this.state.currentSong} />
          </>
       );
